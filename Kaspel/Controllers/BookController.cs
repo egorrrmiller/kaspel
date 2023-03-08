@@ -14,6 +14,11 @@ public class BookController : ControllerBase
         _repository = repository;
     }
 
+    /// <summary>
+    ///     Добавление книги
+    /// </summary>
+    /// <param name="bookDto">Сущность книги</param>
+    /// <returns></returns>
     [HttpPost("book")]
     public async Task<IActionResult> AddBook(BookDto bookDto)
     {
@@ -21,6 +26,10 @@ public class BookController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    ///     Получить список всех книг
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("book")]
     public async Task<IActionResult> GetBooks()
     {
@@ -28,6 +37,11 @@ public class BookController : ControllerBase
         return Ok(books);
     }
 
+    /// <summary>
+    ///     Получение книги по Id
+    /// </summary>
+    /// <param name="id">дентификатор книги</param>
+    /// <returns></returns>
     [HttpGet("bookById")]
     public async Task<IActionResult> GetBookById(int id)
     {
@@ -35,6 +49,11 @@ public class BookController : ControllerBase
         return Ok(books);
     }
 
+    /// <summary>
+    ///     Получение книг по названию
+    /// </summary>
+    /// <param name="title">Название книги</param>
+    /// <returns></returns>
     [HttpGet("bookByTitle")]
     public async Task<IActionResult> GetBookByTitle(string title)
     {
@@ -42,6 +61,11 @@ public class BookController : ControllerBase
         return Ok(books);
     }
 
+    /// <summary>
+    ///     Получение книг по дате выхода
+    /// </summary>
+    /// <param name="releaseDate">Дата выхода книги</param>
+    /// <returns></returns>
     [HttpGet("bookByReleaseDate")]
     public async Task<IActionResult> GetBookByReleaseDate(DateTime releaseDate)
     {
@@ -49,6 +73,11 @@ public class BookController : ControllerBase
         return Ok(books);
     }
 
+    /// <summary>
+    ///     Удалить книгу по Id
+    /// </summary>
+    /// <param name="id">Идентификатор книги</param>
+    /// <returns></returns>
     [HttpDelete("book")]
     public async Task<IActionResult> DeleteBook(int id)
     {

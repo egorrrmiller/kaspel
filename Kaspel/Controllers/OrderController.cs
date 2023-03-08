@@ -37,13 +37,24 @@ public class OrderController : ControllerBase
         return Ok(await _repository.GetOrders());
     }
 
-
+    /// <summary>
+    ///     Получить заказ по Id
+    /// </summary>
+    /// <param name="id">Идентификатор заказа</param>
+    /// >
+    /// <returns></returns>
     [HttpGet("orderById")]
     public async Task<IActionResult> GetOrderById(int id)
     {
         return Ok(await _repository.GetOrderById(id));
     }
 
+    /// <summary>
+    ///     Получить заказ по дате создания
+    /// </summary>
+    /// <param name="orderDate">Дата создания заказа</param>
+    /// >
+    /// <returns></returns>
     [HttpGet("orderByOrderDate")]
     public async Task<IActionResult> GetOrderByOrderDate(DateTime orderDate)
     {
