@@ -9,7 +9,6 @@ public class Book
     public string? Description { get; set; }
     public DateTime ReleaseDate { get; set; }
 
-
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
     public List<OrderBook> OrderBooks { get; set; } = new();
