@@ -2,16 +2,10 @@ using DataBase.Context;
 using DataBase.Repository;
 using DataBase.Repository.Interfaces;
 using Kaspel.Middlewares;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<KaspelContext>(context =>
-{
-    // SQLite использовал т.к не установлен MSSQL на ноутбук.
-    // Т.к используется EF, то это легко менятется
-    context.UseSqlite("Data Source = kaspel.db");
-});
+builder.Services.AddDbContext<KaspelContext>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddControllers().AddNewtonsoftJson();

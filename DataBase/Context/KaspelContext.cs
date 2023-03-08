@@ -5,13 +5,21 @@ namespace DataBase.Context;
 
 public class KaspelContext : DbContext
 {
-    public KaspelContext(DbContextOptions<KaspelContext> options) : base(options)
+    /*public KaspelContext(DbContextOptions<KaspelContext> options) : base(options)
     {
-    }
+    }*/
 
     public DbSet<Book> Books { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderBook> OrderBooks { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // SQLite использовал т.к не установлен MSSQL на ноутбук.
+        // Т.к используется EF, то это легко менятется
+        optionsBuilder.UseSqlite("Data Source = kaspel.db");
+        base.OnConfiguring(optionsBuilder);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
