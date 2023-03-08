@@ -22,7 +22,9 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> GetOrderById(int id)
     {
-        var orderById = await _context.Orders.FindAsync(id);
+        var orderById = await _context.Orders
+            .Include(book => book.Books)
+            .FirstOrDefaultAsync(order => order.Id == id);
         if (orderById is null)
             throw new NullReferenceException();
 
@@ -32,7 +34,10 @@ public class OrderRepository : IOrderRepository
     public async Task<List<Order>> GetOrderByOrderDate(DateTime orderDate)
     {
         // теоретически может быть создано много заказов в одного время, поэтому Where
-        var orderById = _context.Orders.Where(order => order.OrderDate == orderDate).ToList();
+        var orderById = _context.Orders
+            .Include(book => book.Books)
+            .Where(order => order.OrderDate == orderDate)
+            .ToList();
         if (orderById is null)
             throw new NullReferenceException();
 
@@ -45,13 +50,13 @@ public class OrderRepository : IOrderRepository
          * Немного намудренно (очень много), но лучше решения пока что не придумал.
          * 100% есть варианты лучше, но пока что как есть
          */
-        
+
         var books = await _context.Books.ToListAsync();
         var order = await _context.Orders.AddAsync(new Order()
         {
             OrderDate = DateTime.Now
         });
-        
+
         await _context.SaveChangesAsync();
 
         foreach (var bookId in orderDto.Books)
@@ -61,7 +66,7 @@ public class OrderRepository : IOrderRepository
                 await DeleteOrder(order.Entity.Id);
                 throw new InvalidOperationException();
             }
-            
+
             await _context.OrderBooks.AddAsync(new OrderBook()
             {
                 OrderId = order.Entity.Id,
