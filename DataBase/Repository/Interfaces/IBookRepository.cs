@@ -19,6 +19,7 @@ public interface IBookRepository
     Task<Book> GetBookById(int id);
 
     Task<List<Book>> GetBooksByTitle(string title);
+    Task<List<Book>> GetBooksByReleaseDate(DateTime releaseDate);
 
     /// <summary>
     /// Добавить книгу

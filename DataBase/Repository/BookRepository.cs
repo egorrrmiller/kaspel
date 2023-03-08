@@ -36,6 +36,13 @@ public class BookRepository : IBookRepository
         return book;
     }
 
+    public async Task<List<Book>> GetBooksByReleaseDate(DateTime releaseDate)
+    {
+        var book = _context.Books.Where(book => book.ReleaseDate == releaseDate).ToList();
+
+        return book;
+    }
+
     public async Task AddBook(BookDto bookDto)
     {
         await _context.Books.AddAsync(new Book()

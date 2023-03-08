@@ -42,6 +42,13 @@ public class BookController : ControllerBase
         return Ok(books);
     }
     
+    [HttpGet("bookByReleaseDate")]
+    public async Task<IActionResult> GetBookByReleaseDate(DateTime releaseDate)
+    {
+        var books = await _repository.GetBooksByReleaseDate(releaseDate);
+        return Ok(books);
+    }
+    
     [HttpDelete("book")]
     public async Task<IActionResult> DeleteBook(int id)
     {
