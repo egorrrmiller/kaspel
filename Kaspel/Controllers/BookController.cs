@@ -1,5 +1,4 @@
 using DataBase.DTO;
-using DataBase.Repository;
 using DataBase.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,9 +28,23 @@ public class BookController : ControllerBase
         return Ok(books);
     }
     
+    [HttpGet("bookById")]
+    public async Task<IActionResult> GetBookById(int id)
+    {
+        var books = await _repository.GetBookById(id);
+        return Ok(books);
+    }
+    
+    [HttpGet("bookByTitle")]
+    public async Task<IActionResult> GetBookByTitle(string title)
+    {
+        var books = await _repository.GetBooksByTitle(title);
+        return Ok(books);
+    }
+    
     [HttpDelete("book")]
     public async Task<IActionResult> DeleteBook(int id)
-    { 
+    {
         await _repository.DeleteBook(id);
         return Ok();
     }

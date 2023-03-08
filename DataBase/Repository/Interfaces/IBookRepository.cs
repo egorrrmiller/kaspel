@@ -10,8 +10,16 @@ public interface IBookRepository
     /// </summary>
     /// <returns></returns>
     Task<List<Book>> GetBooks();
-    Task<Book> GetBookById(int id);
     
+    /// <summary>
+    /// Получение книги по Id
+    /// </summary>
+    /// <param name="id">Идентификатор книги</param>
+    /// <returns></returns>
+    Task<Book> GetBookById(int id);
+
+    Task<List<Book>> GetBooksByTitle(string title);
+
     /// <summary>
     /// Добавить книгу
     /// </summary>

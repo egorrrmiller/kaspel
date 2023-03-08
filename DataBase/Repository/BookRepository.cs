@@ -22,12 +22,20 @@ public class BookRepository : IBookRepository
 
     public async Task<Book> GetBookById(int id)
     {
-        var book = await _context.Books.FirstOrDefaultAsync(book => book.Id == id);
+        var book = await _context.Books.FindAsync(id);
         if (book is null)
             throw new NullReferenceException($"Книги с Id:{id} не существует");
 
         return book;
     }
+
+    public async Task<List<Book>> GetBooksByTitle(string title)
+    {
+        var book = _context.Books.Where(book => book.Title == title).ToList();
+
+        return book;
+    }
+
 
     public async Task AddBook(BookDto bookDto)
     {
