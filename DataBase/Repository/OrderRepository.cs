@@ -79,5 +79,6 @@ public class OrderRepository : IOrderRepository
             throw new InvalidOperationException();
 
         _context.Orders.Remove(order);
+        await _context.SaveChangesAsync();
     }
 }
