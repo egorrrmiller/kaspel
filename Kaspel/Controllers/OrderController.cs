@@ -2,7 +2,6 @@ using DataBase.DTO;
 using DataBase.Repository;
 using DataBase.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Kaspel.Controllers;
 
