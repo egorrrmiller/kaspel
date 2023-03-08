@@ -29,9 +29,10 @@ public class OrderRepository : IOrderRepository
         return orderById;
     }
 
-    public async Task<Order> GetOrderByOrderDate(DateTime orderDate)
+    public async Task<List<Order>> GetOrderByOrderDate(DateTime orderDate)
     {
-        var orderById = await _context.Orders.FindAsync(orderDate);
+        // теоретически может быть создано много заказов в одного время, поэтому Where
+        var orderById = _context.Orders.Where(order => order.OrderDate == orderDate).ToList();
         if (orderById is null)
             throw new NullReferenceException();
 
@@ -40,6 +41,11 @@ public class OrderRepository : IOrderRepository
 
     public async Task AddOrder(OrderDto orderDto)
     {
+        /*
+         * Немного намудренно (очень много), но лучше решения пока что не придумал.
+         * 100% есть варианты лучше, но пока что как есть
+         */
+        
         var books = await _context.Books.ToListAsync();
         var order = await _context.Orders.AddAsync(new Order()
         {

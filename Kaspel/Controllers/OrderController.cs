@@ -39,6 +39,9 @@ public class OrderController : ControllerBase
     [HttpGet("orderById")]
     public async Task<IActionResult> GetOrderById(int id) => Ok(await _repository.GetOrderById(id));
     
+    [HttpGet("orderByOrderDate")]
+    public async Task<IActionResult> GetOrderByOrderDate(DateTime orderDate) => Ok(await _repository.GetOrderByOrderDate(orderDate));
+    
     /// <summary>
     /// Удалить заказ по Id
     /// </summary>

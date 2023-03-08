@@ -17,13 +17,13 @@ public interface IOrderRepository
     /// <param name="id">Идентификатор заказа</param>
     /// <returns></returns>
     Task<Order> GetOrderById(int id);
-    
+
     /// <summary>
     /// Получить заказ по дате создания
     /// </summary>
     /// <param name="orderDate">Время создания заказа</param>
     /// <returns></returns>
-    Task<Order> GetOrderByOrderDate(DateTime orderDate);
+    Task<List<Order>> GetOrderByOrderDate(DateTime orderDate);
     
     /// <summary>
     /// Добавить заказ
