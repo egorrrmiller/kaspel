@@ -1,7 +1,6 @@
+using DataBase.DTO;
 using DataBase.Repository;
-using Kaspel.Context;
-using Kaspel.DTO;
-using Kaspel.Models;
+using DataBase.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kaspel.Controllers;
@@ -9,9 +8,9 @@ namespace Kaspel.Controllers;
 [ApiController]
 public class BookController : ControllerBase
 {
-    private readonly IKaspelRepository _repository;
+    private readonly IBookRepository _repository;
 
-    public BookController(IKaspelRepository repository)
+    public BookController(IBookRepository repository)
     {
         _repository = repository;
     }
@@ -28,5 +27,12 @@ public class BookController : ControllerBase
     {
         var books = await _repository.GetBooks();
         return Ok(books);
+    }
+    
+    [HttpDelete("book")]
+    public async Task<IActionResult> DeleteBook(int id)
+    { 
+        await _repository.DeleteBook(id);
+        return Ok();
     }
 }

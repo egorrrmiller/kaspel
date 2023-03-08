@@ -1,4 +1,4 @@
-namespace Kaspel.Models;
+namespace DataBase.Models;
 
 public class OrderBook
 {

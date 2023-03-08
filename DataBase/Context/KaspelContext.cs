@@ -1,13 +1,13 @@
-using Kaspel.Models;
+using DataBase.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Kaspel.Context;
+namespace DataBase.Context;
 
 public class KaspelContext : DbContext
 {
     public KaspelContext(DbContextOptions<KaspelContext> options) : base(options)
     {
-        //Database.EnsureCreated();
+        
     }
 
     public DbSet<Book> Books { get; set; }
@@ -16,10 +16,11 @@ public class KaspelContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // долго сидел с попыткой сделать связь один-ко-многим, но ничего не получалось, хотя делал вроде как правильно...
+        // по итогу сделал связь многие-ко-многим
+        
         modelBuilder.Entity<Order>(o =>
         {
-            //o.HasKey(key => key.Id);
-            //o.HasIndex(name => name.Id).IsUnique();
             o
                 .HasMany(a => a.Books)
                 .WithMany(b => b.Orders)

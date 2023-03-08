@@ -1,6 +1,6 @@
-using Kaspel.Context;
-using Kaspel.DTO;
-using Kaspel.Models;
+using DataBase.DTO;
+using DataBase.Repository;
+using DataBase.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,41 +9,43 @@ namespace Kaspel.Controllers;
 [ApiController]
 public class OrderController : ControllerBase
 {
-    private readonly KaspelContext _context;
+    private readonly IOrderRepository _repository;
 
-    public OrderController(KaspelContext context)
+    public OrderController(IOrderRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
+    /// <summary>
+    /// Добавить заказ
+    /// </summary>
+    /// <param name="orderDto">Тело заказа</param>
+    /// <returns></returns>
     [HttpPost("order")]
-    public ActionResult AddOrder(OrderDto orderDto)
+    public async Task<IActionResult> AddOrder(OrderDto orderDto)
     {
-        var books = _context.Books.ToList();
-        var order = _context.Orders.Add(new Order()
-        {
-            OrderDate = DateTime.Now
-        });
-        _context.SaveChanges();
-        foreach (var bookId in orderDto.Books)
-        {
-            if (books.Exists(x => x.Id == bookId))
-                _context.OrderBooks.Add(new OrderBook()
-                {
-                    OrderId = order.Entity.Id,
-                    BookId = bookId
-                });
-            else
-            {
-                throw new InvalidOperationException($"Не удалось создать заказ. \n Книги с Id: {bookId} не существует");
-            }
-        }
-
-        _context.SaveChanges();
+        await _repository.AddOrder(orderDto);
 
         return Ok();
     }
 
+    /// <summary>
+    /// Получить список всех заказов
+    /// </summary>
+    /// <returns>Список всех заказов</returns>
     [HttpGet("order")]
-    public ActionResult GetOrders() => Ok(_context.Orders.Include(books => books.Books).ToList());
+    public async Task<IActionResult> GetOrders() => Ok(await _repository.GetOrders());
+    
+    /// <summary>
+    /// Удалить заказ по Id
+    /// </summary>
+    /// <param name="id">Идентификатор заказа</param>
+    /// <returns></returns>
+    [HttpDelete("order")]
+    public async Task<IActionResult> DeleteOrder(int id)
+    {
+        await _repository.DeleteOrder(id);
+
+        return Ok();
+    }
 }

@@ -1,7 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-
-namespace Kaspel.Models;
+namespace DataBase.Models;
 
 public class Order
 {
@@ -9,7 +6,8 @@ public class Order
     public DateTime OrderDate { get; set; }
     
 
-    [JsonIgnore]
+    [Newtonsoft.Json.JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
     public List<OrderBook> OrderBooks { get; set; } = new List<OrderBook>();
     
     

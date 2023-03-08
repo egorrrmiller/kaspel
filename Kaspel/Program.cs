@@ -1,5 +1,7 @@
+using DataBase.Context;
 using DataBase.Repository;
-using Kaspel.Context;
+using DataBase.Repository.Interfaces;
+using Kaspel.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +12,8 @@ builder.Services.AddDbContext<KaspelContext>(context =>
     // Т.к используется EF, то это легко менятется
     context.UseSqlite("Data Source = kaspel.db");
 });
-builder.Services.AddScoped<IKaspelRepository, KaspelRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +26,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

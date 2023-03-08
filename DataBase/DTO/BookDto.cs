@@ -1,4 +1,4 @@
-namespace Kaspel.DTO;
+namespace DataBase.DTO;
 
 public class BookDto
 {
