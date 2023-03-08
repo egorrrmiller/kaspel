@@ -22,7 +22,16 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order> GetOrderById(int id)
     {
-        var orderById = await _context.Orders.FirstOrDefaultAsync(order => order.Id == id);
+        var orderById = await _context.Orders.FindAsync(id);
+        if (orderById is null)
+            throw new NullReferenceException();
+
+        return orderById;
+    }
+
+    public async Task<Order> GetOrderByOrderDate(DateTime orderDate)
+    {
+        var orderById = await _context.Orders.FindAsync(orderDate);
         if (orderById is null)
             throw new NullReferenceException();
 
@@ -59,7 +68,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task DeleteOrder(int id)
     {
-        var order = await _context.Orders.FirstOrDefaultAsync(order => order.Id == id);
+        var order = await _context.Orders.FindAsync(id);
         if (order is null)
             throw new InvalidOperationException();
 
