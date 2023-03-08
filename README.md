@@ -6,7 +6,7 @@
 
 В контексте, миддлваре и в целом в коде есть комменты, где объяснил почему реализовал таким-то способом.
 
-Также можно посмотреть [Issues](https://github.com/egorrrmiller/kaspel/issues) и [Pull requests](https://github.com/egorrrmiller/kaspel/pulls) чтобы посмотреть как велась работа с гитом
+Также можно посмотреть [Issues](https://github.com/egorrrmiller/kaspel/issues?q=is%3Aissue+is%3Aclosed) и [Pull requests](https://github.com/egorrrmiller/kaspel/pulls?q=is%3Apr+is%3Aclosed) чтобы посмотреть как велась работа с гитом
 
 По роутам: по ТЗ не требовалось, но сделал добавление, удаление книг/заказов для тестов. <br/>
 Для методов контроллера сделал две ДТОшки, одна для книг, вторая для заказов. Маппить особо ничего не нужно, поэтому маппер не качал. <br/>
