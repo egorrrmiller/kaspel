@@ -1,4 +1,7 @@
+using Newtonsoft.Json;
+
 namespace DataBase.Models;
+
 public class Book
 {
     public int Id { get; set; }
@@ -6,12 +9,12 @@ public class Book
     public string? Description { get; set; }
     public DateTime ReleaseDate { get; set; }
 
-    
-    [Newtonsoft.Json.JsonIgnore]
+
+    [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<OrderBook> OrderBooks { get; set; } = new List<OrderBook>();
-    
-    [Newtonsoft.Json.JsonIgnore]
+    public List<OrderBook> OrderBooks { get; set; } = new();
+
+    [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Order> Orders { get; set; } = new List<Order>();
+    public List<Order> Orders { get; set; } = new();
 }

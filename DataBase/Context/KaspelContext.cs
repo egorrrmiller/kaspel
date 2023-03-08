@@ -7,7 +7,6 @@ public class KaspelContext : DbContext
 {
     public KaspelContext(DbContextOptions<KaspelContext> options) : base(options)
     {
-        
     }
 
     public DbSet<Book> Books { get; set; }
@@ -18,7 +17,7 @@ public class KaspelContext : DbContext
     {
         // долго сидел с попыткой сделать связь один-ко-многим, но ничего не получалось, хотя делал вроде как правильно...
         // по итогу сделал связь многие-ко-многим
-        
+
         modelBuilder.Entity<Order>(o =>
         {
             o

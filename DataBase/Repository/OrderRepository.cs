@@ -52,7 +52,7 @@ public class OrderRepository : IOrderRepository
          */
 
         var books = await _context.Books.ToListAsync();
-        var order = await _context.Orders.AddAsync(new Order()
+        var order = await _context.Orders.AddAsync(new Order
         {
             OrderDate = DateTime.Now
         });
@@ -67,7 +67,7 @@ public class OrderRepository : IOrderRepository
                 throw new InvalidOperationException();
             }
 
-            await _context.OrderBooks.AddAsync(new OrderBook()
+            await _context.OrderBooks.AddAsync(new OrderBook
             {
                 OrderId = order.Entity.Id,
                 BookId = bookId

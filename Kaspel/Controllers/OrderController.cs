@@ -1,5 +1,4 @@
 using DataBase.DTO;
-using DataBase.Repository;
 using DataBase.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +15,7 @@ public class OrderController : ControllerBase
     }
 
     /// <summary>
-    /// Добавить заказ
+    ///     Добавить заказ
     /// </summary>
     /// <param name="orderDto">Тело заказа</param>
     /// <returns></returns>
@@ -29,21 +28,30 @@ public class OrderController : ControllerBase
     }
 
     /// <summary>
-    /// Получить список всех заказов
+    ///     Получить список всех заказов
     /// </summary>
     /// <returns>Список всех заказов</returns>
     [HttpGet("order")]
-    public async Task<IActionResult> GetOrders() => Ok(await _repository.GetOrders());
-    
-    
+    public async Task<IActionResult> GetOrders()
+    {
+        return Ok(await _repository.GetOrders());
+    }
+
+
     [HttpGet("orderById")]
-    public async Task<IActionResult> GetOrderById(int id) => Ok(await _repository.GetOrderById(id));
-    
+    public async Task<IActionResult> GetOrderById(int id)
+    {
+        return Ok(await _repository.GetOrderById(id));
+    }
+
     [HttpGet("orderByOrderDate")]
-    public async Task<IActionResult> GetOrderByOrderDate(DateTime orderDate) => Ok(await _repository.GetOrderByOrderDate(orderDate));
-    
+    public async Task<IActionResult> GetOrderByOrderDate(DateTime orderDate)
+    {
+        return Ok(await _repository.GetOrderByOrderDate(orderDate));
+    }
+
     /// <summary>
-    /// Удалить заказ по Id
+    ///     Удалить заказ по Id
     /// </summary>
     /// <param name="id">Идентификатор заказа</param>
     /// <returns></returns>

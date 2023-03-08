@@ -1,4 +1,3 @@
-
 namespace DataBase.DTO;
 
 public class OrderDto

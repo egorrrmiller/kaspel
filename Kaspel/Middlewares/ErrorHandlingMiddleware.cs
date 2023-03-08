@@ -20,7 +20,7 @@ public class ErrorHandlingMiddleware
         try
         {
             await _requestDelegate(context);
-            
+
             /*
              Не стал писать полностью все ошибки, но думаю суть того, как они будут обрабатываться понятна.
              Можно также кастомные исключения написать, выбрасывать в репозитории и ловить тут, но времени на это нет))
@@ -42,11 +42,11 @@ public class ErrorHandlingMiddleware
 
         var response = context.Response;
         response.ContentType = "application/json";
-        response.StatusCode = (int) httpStatusCode;
+        response.StatusCode = (int)httpStatusCode;
 
         var errorDto = new ErrorDto
         {
-            StatusCode = (int) httpStatusCode,
+            StatusCode = (int)httpStatusCode,
             Message = message
         };
 

@@ -6,13 +6,13 @@ namespace DataBase.Repository.Interfaces;
 public interface IBookRepository
 {
     /// <summary>
-    /// Получить список книг
+    ///     Получить список книг
     /// </summary>
     /// <returns></returns>
     Task<List<Book>> GetBooks();
-    
+
     /// <summary>
-    /// Получение книги по Id
+    ///     Получение книги по Id
     /// </summary>
     /// <param name="id">Идентификатор книги</param>
     /// <returns></returns>
@@ -22,16 +22,16 @@ public interface IBookRepository
     Task<List<Book>> GetBooksByReleaseDate(DateTime releaseDate);
 
     /// <summary>
-    /// Добавить книгу
+    ///     Добавить книгу
     /// </summary>
     /// <param name="bookDto"></param>
     /// <returns></returns>
     Task AddBook(BookDto bookDto);
-    
+
     /// <summary>
-    /// Удалить книгу по Id
+    ///     Удалить книгу по Id
     /// </summary>
     /// <param name="id">Идентификатор книги</param>
     /// <returns></returns>
-    Task DeleteBook(int id);   
+    Task DeleteBook(int id);
 }

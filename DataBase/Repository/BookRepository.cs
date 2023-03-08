@@ -45,7 +45,7 @@ public class BookRepository : IBookRepository
 
     public async Task AddBook(BookDto bookDto)
     {
-        await _context.Books.AddAsync(new Book()
+        await _context.Books.AddAsync(new Book
         {
             Title = bookDto.Title,
             Description = bookDto.Description,

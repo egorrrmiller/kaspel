@@ -11,5 +11,5 @@ public class ErrorDto
     public override string ToString()
     {
         return JsonSerializer.Serialize(this);
-    }   
+    }
 }
