@@ -5,10 +5,6 @@ namespace DataBase.Context;
 
 public class KaspelContext : DbContext
 {
-    /*public KaspelContext(DbContextOptions<KaspelContext> options) : base(options)
-    {
-    }*/
-
     public DbSet<Book> Books { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderBook> OrderBooks { get; set; }
