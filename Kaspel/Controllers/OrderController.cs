@@ -35,6 +35,10 @@ public class OrderController : ControllerBase
     [HttpGet("order")]
     public async Task<IActionResult> GetOrders() => Ok(await _repository.GetOrders());
     
+    
+    [HttpGet("orderById")]
+    public async Task<IActionResult> GetOrderById(int id) => Ok(await _repository.GetOrderById(id));
+    
     /// <summary>
     /// Удалить заказ по Id
     /// </summary>

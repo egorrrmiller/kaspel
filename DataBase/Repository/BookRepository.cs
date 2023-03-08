@@ -58,7 +58,7 @@ public class BookRepository : IBookRepository
     {
         var book = await _context.Books.FirstOrDefaultAsync(book => book.Id == id);
         if (book is null)
-            throw new NullReferenceException($"Книги с Id:{id} не существует");
+            throw new NullReferenceException();
 
         _context.Books.Remove(book);
     }
