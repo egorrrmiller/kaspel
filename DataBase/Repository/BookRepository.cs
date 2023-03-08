@@ -24,7 +24,7 @@ public class BookRepository : IBookRepository
     {
         var book = await _context.Books.FindAsync(id);
         if (book is null)
-            throw new NullReferenceException($"Книги с Id:{id} не существует");
+            throw new NullReferenceException();
 
         return book;
     }
@@ -35,7 +35,6 @@ public class BookRepository : IBookRepository
 
         return book;
     }
-
 
     public async Task AddBook(BookDto bookDto)
     {

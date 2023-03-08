@@ -24,7 +24,7 @@ public class OrderRepository : IOrderRepository
     {
         var orderById = await _context.Orders.FirstOrDefaultAsync(order => order.Id == id);
         if (orderById is null)
-            throw new NullReferenceException($"Заказа с Id:{id} не существует");
+            throw new NullReferenceException();
 
         return orderById;
     }
@@ -44,7 +44,7 @@ public class OrderRepository : IOrderRepository
             if (!books.Exists(x => x.Id == bookId))
             {
                 await DeleteOrder(order.Entity.Id);
-                throw new InvalidOperationException($"Не удалось создать заказ. \n Книги с Id: {bookId} не существует");
+                throw new InvalidOperationException();
             }
             
             await _context.OrderBooks.AddAsync(new OrderBook()
@@ -61,7 +61,7 @@ public class OrderRepository : IOrderRepository
     {
         var order = await _context.Orders.FirstOrDefaultAsync(order => order.Id == id);
         if (order is null)
-            throw new InvalidOperationException($"Заказа с Id:{id} не существует");
+            throw new InvalidOperationException();
 
         _context.Orders.Remove(order);
     }
