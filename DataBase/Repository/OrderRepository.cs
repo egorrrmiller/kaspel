@@ -52,28 +52,18 @@ public class OrderRepository : IOrderRepository
          */
 
         var books = await _context.Books.ToListAsync();
-        var order = await _context.Orders.AddAsync(new Order
-        {
-            OrderDate = DateTime.Now
-        });
 
+        // смотрим есть ли книги в базе данных
+        if (orderDto.Books.Any(bookId => !books.Exists(x => x.Id == bookId)))
+            throw new InvalidOperationException();
+        
+        // создаем заказ
+        var order = await _context.Orders.AddAsync(new Order { OrderDate = DateTime.Now });
         await _context.SaveChangesAsync();
 
+        // и добавляем данные о книгах и заказе
         foreach (var bookId in orderDto.Books)
-        {
-            if (!books.Exists(x => x.Id == bookId))
-            {
-                await DeleteOrder(order.Entity.Id);
-                throw new InvalidOperationException();
-            }
-
-            await _context.OrderBooks.AddAsync(new OrderBook
-            {
-                OrderId = order.Entity.Id,
-                BookId = bookId
-            });
-        }
-
+            await _context.OrderBooks.AddAsync(new OrderBook { OrderId = order.Entity.Id, BookId = bookId });
         await _context.SaveChangesAsync();
     }
 
