@@ -12,7 +12,7 @@ public class KaspelContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // SQLite использовал т.к не установлен MSSQL на ноутбук.
-        // Т.к используется EF, то это легко менятется
+        // Т.к используется EF, то это легко меняется
         optionsBuilder.UseSqlite("Data Source = kaspel.db");
         base.OnConfiguring(optionsBuilder);
     }
