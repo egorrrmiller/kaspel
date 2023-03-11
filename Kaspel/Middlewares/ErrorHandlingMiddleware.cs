@@ -31,7 +31,7 @@ public class ErrorHandlingMiddleware
             await HandleExceptionAsync(context,
                 e.Message,
                 HttpStatusCode.InternalServerError,
-                "Произошла неизвестная ошибка. \nИнформация о ней уже была отправлена разработчикам");
+                e.Message);
         }
     }
 

@@ -24,7 +24,7 @@ public class BookRepository : IBookRepository
     {
         var book = await _context.Books.FindAsync(id);
         if (book is null)
-            throw new NullReferenceException();
+            throw new NullReferenceException("Книги с таким Id не существует");
 
         return book;
     }
@@ -58,7 +58,7 @@ public class BookRepository : IBookRepository
     {
         var book = await _context.Books.FirstOrDefaultAsync(book => book.Id == id);
         if (book is null)
-            throw new NullReferenceException();
+            throw new NullReferenceException("Книги с таким Id не существует");
 
         _context.Books.Remove(book);
         await _context.SaveChangesAsync();

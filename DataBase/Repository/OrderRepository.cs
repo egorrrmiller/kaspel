@@ -26,7 +26,7 @@ public class OrderRepository : IOrderRepository
             .Include(book => book.Books)
             .FirstOrDefaultAsync(order => order.Id == id);
         if (orderById is null)
-            throw new NullReferenceException();
+            throw new NullReferenceException("Заказа с таким Id не существует");
 
         return orderById;
     }
@@ -39,7 +39,7 @@ public class OrderRepository : IOrderRepository
             .Where(order => order.OrderDate == orderDate)
             .ToList();
         if (orderById is null)
-            throw new NullReferenceException();
+            throw new NullReferenceException("Заказа с таким Id не существует");
 
         return orderById;
     }
@@ -66,7 +66,7 @@ public class OrderRepository : IOrderRepository
     {
         var order = await _context.Orders.FindAsync(id);
         if (order is null)
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Заказа с таким Id не существует");
 
         _context.Orders.Remove(order);
         await _context.SaveChangesAsync();
