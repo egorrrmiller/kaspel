@@ -11,9 +11,9 @@ public class Book
 
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<OrderBook> OrderBooks { get; set; } = new();
+    public List<OrderBook> OrderBooks { get; set; }
 
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public List<Order> Orders { get; set; } = new();
+    public List<Order> Orders { get; set; }
 }
