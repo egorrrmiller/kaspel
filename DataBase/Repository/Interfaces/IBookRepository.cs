@@ -1,26 +1,9 @@
 using DataBase.DTO;
-using DataBase.Models;
 
 namespace DataBase.Repository.Interfaces;
 
 public interface IBookRepository
 {
-    /// <summary>
-    ///     Получить список книг
-    /// </summary>
-    /// <returns></returns>
-    Task<List<Book>> GetBooks();
-
-    /// <summary>
-    ///     Получение книги по Id
-    /// </summary>
-    /// <param name="id">Идентификатор книги</param>
-    /// <returns></returns>
-    Task<Book> GetBookById(int id);
-
-    Task<List<Book>> GetBooksByTitle(string title);
-    Task<List<Book>> GetBooksByReleaseDate(DateTime releaseDate);
-
     /// <summary>
     ///     Добавить книгу
     /// </summary>
@@ -34,4 +17,21 @@ public interface IBookRepository
     /// <param name="id">Идентификатор книги</param>
     /// <returns></returns>
     Task DeleteBook(int id);
+
+    /// <summary>
+    ///     Получить список книг
+    /// </summary>
+    /// <returns></returns>
+    Task<List<BookDto>> GetBooks();
+
+    /// <summary>
+    ///     Получение книги по Id
+    /// </summary>
+    /// <param name="id">Идентификатор книги</param>
+    /// <returns></returns>
+    Task<BookDto> GetBookById(int id);
+
+    Task<List<BookDto>> GetBooksByTitle(string title);
+
+    Task<List<BookDto>> GetBooksByReleaseDate(DateTime releaseDate);
 }
