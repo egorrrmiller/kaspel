@@ -28,8 +28,8 @@ public class OrderRepository : IOrderRepository
         await _context.SaveChangesAsync();
 
         // и добавляем данные о книгах и заказе
-        foreach (var bookId in orderDto.BooksId)
-            await _context.OrderBooks.AddAsync(new OrderBook { OrderId = order.Entity.Id, BookId = bookId });
+        await _context.OrderBooks.AddRangeAsync(
+            orderDto.BooksId.Select(bookId => new OrderBook { OrderId = order.Entity.Id, BookId = bookId }));
         await _context.SaveChangesAsync();
     }
 
