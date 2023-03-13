@@ -15,34 +15,6 @@ public class BookRepository : IBookRepository
         _context = context;
     }
 
-    public async Task<List<Book>> GetBooks()
-    {
-        return await _context.Books.ToListAsync();
-    }
-
-    public async Task<Book> GetBookById(int id)
-    {
-        var book = await _context.Books.FindAsync(id);
-        if (book is null)
-            throw new NullReferenceException("Книги с таким Id не существует");
-
-        return book;
-    }
-
-    public async Task<List<Book>> GetBooksByTitle(string title)
-    {
-        var book = _context.Books.Where(book => book.Title == title).ToList();
-
-        return book;
-    }
-
-    public async Task<List<Book>> GetBooksByReleaseDate(DateTime releaseDate)
-    {
-        var book = _context.Books.Where(book => book.ReleaseDate == releaseDate).ToList();
-
-        return book;
-    }
-
     public async Task AddBook(BookDto bookDto)
     {
         await _context.Books.AddAsync(new Book
@@ -62,5 +34,60 @@ public class BookRepository : IBookRepository
 
         _context.Books.Remove(book);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<BookDto>> GetBooks()
+    {
+        var books = await _context.Books.ToListAsync();
+
+        return books.Select(book => new BookDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Description = book.Description,
+            ReleaseDate = book.ReleaseDate
+        }).ToList();
+    }
+
+    public async Task<BookDto> GetBookById(int id)
+    {
+        var book = await _context.Books.FindAsync(id);
+        if (book is null)
+            throw new NullReferenceException("Книги с таким Id не существует");
+
+        return new BookDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Description = book.Description,
+            ReleaseDate = book.ReleaseDate
+        };
+    }
+
+    public async Task<List<BookDto>> GetBooksByTitle(string title)
+    {
+        var books = _context.Books.Where(book => book.Title == title).ToList();
+
+        return books.Select(book => new BookDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Description = book.Description,
+            ReleaseDate = book.ReleaseDate
+        }).ToList();
+    }
+
+    public async Task<List<BookDto>> GetBooksByReleaseDate(DateTime releaseDate)
+    {
+        var books = _context.Books.Where(book => book.ReleaseDate == releaseDate).ToList();
+
+        return books.Select(book => new BookDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Description = book.Description,
+            ReleaseDate = book.ReleaseDate
+        }).ToList();
+        ;
     }
 }

@@ -2,5 +2,5 @@ namespace DataBase.DTO;
 
 public class OrderDto
 {
-    public List<int> Books { get; set; }
+    public List<int> BooksId { get; set; }
 }
