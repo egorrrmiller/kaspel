@@ -31,7 +31,17 @@ public interface IBookRepository
     /// <returns></returns>
     Task<BookDto> GetBookById(int id);
 
+    /// <summary>
+    ///     Получение книги по названию
+    /// </summary>
+    /// <param name="title">Название книги</param>
+    /// <returns></returns>
     Task<List<BookDto>> GetBooksByTitle(string title);
 
+    /// <summary>
+    ///     Получение книги по дате выхода
+    /// </summary>
+    /// <param name="releaseDate">Дата выхода книги</param>
+    /// <returns></returns>
     Task<List<BookDto>> GetBooksByReleaseDate(DateTime releaseDate);
 }
