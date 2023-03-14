@@ -40,13 +40,7 @@ public class BookRepository : IBookRepository
     {
         var books = await _context.Books.ToListAsync();
 
-        return books.Select(book => new BookDto
-        {
-            Id = book.Id,
-            Title = book.Title,
-            Description = book.Description,
-            ReleaseDate = book.ReleaseDate
-        }).ToList();
+        return books.Select(book => new BookDto(book.Id, book.Title, book.Description, book.ReleaseDate)).ToList();
     }
 
     public async Task<BookDto> GetBookById(int id)
@@ -55,39 +49,20 @@ public class BookRepository : IBookRepository
         if (book is null)
             throw new NullReferenceException("Книги с таким Id не существует");
 
-        return new BookDto
-        {
-            Id = book.Id,
-            Title = book.Title,
-            Description = book.Description,
-            ReleaseDate = book.ReleaseDate
-        };
+        return new BookDto(book.Id, book.Title, book.Description, book.ReleaseDate);
     }
 
     public async Task<List<BookDto>> GetBooksByTitle(string title)
     {
         var books = _context.Books.Where(book => book.Title == title).ToList();
 
-        return books.Select(book => new BookDto
-        {
-            Id = book.Id,
-            Title = book.Title,
-            Description = book.Description,
-            ReleaseDate = book.ReleaseDate
-        }).ToList();
+        return books.Select(book => new BookDto(book.Id, book.Title, book.Description, book.ReleaseDate)).ToList();
     }
 
     public async Task<List<BookDto>> GetBooksByReleaseDate(DateTime releaseDate)
     {
         var books = _context.Books.Where(book => book.ReleaseDate == releaseDate).ToList();
 
-        return books.Select(book => new BookDto
-        {
-            Id = book.Id,
-            Title = book.Title,
-            Description = book.Description,
-            ReleaseDate = book.ReleaseDate
-        }).ToList();
-        ;
+        return books.Select(book => new BookDto(book.Id, book.Title, book.Description, book.ReleaseDate)).ToList();
     }
 }
