@@ -1,6 +1,3 @@
 namespace DataBase.DTO;
 
-public class OrderDto
-{
-    public List<int> BooksId { get; set; }
-}
+public record OrderDto(List<int> Books);

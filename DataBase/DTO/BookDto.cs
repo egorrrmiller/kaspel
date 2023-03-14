@@ -2,11 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace DataBase.DTO;
 
-public class BookDto
-{
-    [JsonIgnore] public int Id { get; set; }
-
-    public string Title { get; set; }
-    public string? Description { get; set; }
-    public DateTime ReleaseDate { get; set; }
-}
+public record BookDto(
+    [property: JsonIgnore] int Id, 
+    string Title, string? Description, DateTime ReleaseDate);

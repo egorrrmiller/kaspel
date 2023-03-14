@@ -20,7 +20,7 @@ public class OrderRepository : IOrderRepository
         var books = await _context.Books.ToListAsync();
 
         // смотрим есть ли книги в базе данных
-        if (orderDto.BooksId.Any(bookId => !books.Exists(x => x.Id == bookId)))
+        if (orderDto.Books.Any(bookId => !books.Exists(x => x.Id == bookId)))
             throw new InvalidOperationException();
 
         // создаем заказ
@@ -29,7 +29,7 @@ public class OrderRepository : IOrderRepository
 
         // и добавляем данные о книгах и заказе
         await _context.OrderBooks.AddRangeAsync(
-            orderDto.BooksId.Select(bookId => new OrderBook { OrderId = order.Entity.Id, BookId = bookId }));
+            orderDto.Books.Select(bookId => new OrderBook { OrderId = order.Entity.Id, BookId = bookId }));
         await _context.SaveChangesAsync();
     }
 
@@ -46,12 +46,8 @@ public class OrderRepository : IOrderRepository
     public async Task<List<OrderDetailDto>> GetOrders()
     {
         var orders = await _context.Orders.Include(book => book.Books).ToListAsync();
-        return orders.Select(order => new OrderDetailDto
-        {
-            Id = order.Id,
-            OrderDate = order.OrderDate,
-            Books = order.Books
-        }).ToList();
+
+        return orders.Select(order => new OrderDetailDto(order.Id, order.OrderDate, order.Books)).ToList();
     }
 
     public async Task<OrderDetailDto> GetOrderById(int id)
@@ -63,12 +59,7 @@ public class OrderRepository : IOrderRepository
         if (orderById is null)
             throw new NullReferenceException("Заказа с таким Id не существует");
 
-        return new OrderDetailDto
-        {
-            Id = orderById.Id,
-            OrderDate = orderById.OrderDate,
-            Books = orderById.Books
-        };
+        return new OrderDetailDto(orderById.Id, orderById.OrderDate, orderById.Books);
     }
 
     public async Task<List<OrderDetailDto>> GetOrderByOrderDate(DateTime orderDate)
@@ -82,11 +73,6 @@ public class OrderRepository : IOrderRepository
         if (orderById is null)
             throw new NullReferenceException("Заказа с таким Id не существует");
 
-        return orderById.Select(order => new OrderDetailDto
-        {
-            Id = order.Id,
-            OrderDate = order.OrderDate,
-            Books = order.Books
-        }).ToList();
+        return orderById.Select(order => new OrderDetailDto(order.Id, order.OrderDate, order.Books)).ToList();
     }
 }
